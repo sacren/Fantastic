@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,6 +14,16 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
+            $table->foreignIdFor(model: User::class)->constrained();
+            $table->string(column: 'title');
+            $table->string(column: 'slug');
+            $table->string(column: 'company');
+            $table->string(column: 'location');
+            $table->string(column: 'logo')->nullable();
+            $table->boolean(column: 'is_highlighted')->default(value: false);
+            $table->boolean(column: 'is_active')->default(value: true);
+            $table->text(column: 'content');
+            $table->string(column: 'apply_link');
             $table->timestamps();
         });
     }
