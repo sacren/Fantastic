@@ -9,4 +9,14 @@ class Tag extends Model
 {
     /** @use HasFactory<\Database\Factories\TagFactory> */
     use HasFactory;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name',
+        'slug',
+    ];
 }
