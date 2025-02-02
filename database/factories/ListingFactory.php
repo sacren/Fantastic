@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -27,7 +26,6 @@ class ListingFactory extends Factory
         }
 
         return [
-            'user_id' => User::all()->random()->id,
             'title' => $title,
             'slug' => Str::slug($title),
             'company' => fake()->company(),

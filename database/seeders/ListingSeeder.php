@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Listing;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class ListingSeeder extends Seeder
@@ -12,6 +13,10 @@ class ListingSeeder extends Seeder
      */
     public function run(): void
     {
-        Listing::factory(10)->create();
+        User::all()->each(function ($user) {
+            Listing::factory(rand(1, 4))->create([
+                'user_id' => $user->id
+            ]);
+        });
     }
 }
