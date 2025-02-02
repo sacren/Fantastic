@@ -27,7 +27,7 @@ class ListingFactory extends Factory
         }
 
         return [
-            'user_id' => User::factory(),
+            'user_id' => User::all()->random()->id,
             'title' => $title,
             'slug' => Str::slug($title),
             'company' => fake()->company(),
