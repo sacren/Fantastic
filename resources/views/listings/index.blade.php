@@ -41,6 +41,9 @@
                             </span>
                         @endforeach
                     </div>
+                    <div class="md:flex-flow flex items-center justify-end">
+                        <span>{{ $listing->created_at->diffForHumans() }}</span>
+                    </div>
                 </a>
             @endforeach
         </div>
