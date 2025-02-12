@@ -48,7 +48,7 @@ class Listing extends Model
      */
     public function clicks(): HasMany
     {
-        return $this->hasMany(Listing::class);
+        return $this->hasMany(Click::class);
     }
 
     /**
