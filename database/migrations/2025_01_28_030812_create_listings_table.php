@@ -14,16 +14,16 @@ return new class extends Migration
     {
         Schema::create('listings', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(model: User::class)->constrained();
-            $table->string(column: 'title');
-            $table->string(column: 'slug');
-            $table->string(column: 'company');
-            $table->string(column: 'location');
-            $table->string(column: 'logo')->nullable();
-            $table->boolean(column: 'is_highlighted')->default(value: false);
-            $table->boolean(column: 'is_active')->default(value: true);
-            $table->text(column: 'content');
-            $table->string(column: 'apply_link');
+            $table->foreignIdFor(User::class)->constrained()->cascadeOnDelete();
+            $table->string('title');
+            $table->string('slug')->unique(); // Unique slug
+            $table->string('company');
+            $table->string('location');
+            $table->text('logo')->nullable(); // Text for longer paths
+            $table->boolean('is_highlighted')->default(false)->index();
+            $table->boolean('is_active')->default(true)->index();
+            $table->text('content');
+            $table->text('apply_link'); // Text for longer URLs
             $table->timestamps();
         });
     }
