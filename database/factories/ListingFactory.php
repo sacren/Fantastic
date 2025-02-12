@@ -19,6 +19,9 @@ class ListingFactory extends Factory
             $content .= '<p class="mt-4">' . $line . '</p>';
         }
 
+        // Generate a random hex color code
+        $randomColor = '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+
         // Initialize the ImageManager with GD driver
         $manager = new ImageManager(new Driver());
 
@@ -28,8 +31,8 @@ class ListingFactory extends Factory
         // Ensure the directory exists
         Storage::disk('public')->makeDirectory('company_logos');
 
-        // Create the image using the manager
-        $image = $manager->create(200, 200, 'ccc');
+        // Create the image using the manager with the random background color
+        $image = $manager->create(200, 200)->fill($randomColor);
 
         // Add text to the image
         $image->text('LOGO', 100, 100, function ($font) {
@@ -39,8 +42,8 @@ class ListingFactory extends Factory
             $font->valign('middle');
         });
 
-        // Save the image
-        Storage::disk('public')->put($logoPath, $image->toJpeg());
+        // Save the image as PNG
+        Storage::disk('public')->put($logoPath, $image->toPng());
 
         return [
             'title' => $title,
