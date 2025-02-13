@@ -14,11 +14,13 @@ return new class extends Migration
     {
         Schema::create('clicks', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(model: Listing::class)
+            $table->foreignIdFor(Listing::class)
+                  ->nullable()
                   ->constrained()
-                  ->cascadeOnDelete();
-            $table->text(column: 'user_agent')->nullable();
-            $table->string(column: 'ip_address')->nullable();
+                  ->cascadeOnDelete()
+                  ->index();
+            $table->text('user_agent')->nullable();
+            $table->string('ip_address', 45)->nullable();
             $table->timestamps();
         });
     }
