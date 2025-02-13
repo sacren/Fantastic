@@ -20,7 +20,7 @@ return new class extends Migration
                   ->cascadeOnDelete()
                   ->index();
             $table->text('user_agent')->nullable();
-            $table->string('ip_address', 45)->nullable();
+            $table->ipAddress('ip_address')->nullable();
             $table->timestamps();
         });
     }
