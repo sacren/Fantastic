@@ -11,7 +11,7 @@ class ListingController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $listings = Listing::where('is_active', true)
             ->with('tags')
@@ -19,6 +19,16 @@ class ListingController extends Controller
             ->get();
 
         $tags = Tag::orderBy('name')->get();
+
+        if ($request->has('s')) {
+            $query = strtolower($request->get('s'));
+
+            $listings = $listings->filter(fn ($listing) =>
+                str_contains(strtolower($listing->title), $query) ||
+                str_contains(strtolower($listing->company), $query) ||
+                str_contains(strtolower($listing->location), $query)
+            );
+        }
 
         return view('listings.index', compact('listings', 'tags'));
     }
