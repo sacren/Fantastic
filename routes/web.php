@@ -19,4 +19,7 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
+Route::get('/{listing}', [ListingController::class, 'show'])
+    ->name('listings.show');
+
 Route::fallback(fn () => abort('404'));
