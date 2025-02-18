@@ -30,6 +30,14 @@ class ListingController extends Controller
             );
         }
 
+        if ($request->has('tag')) {
+            $tag = $request->get('tag');
+
+            $listings = $listings->filter(fn ($listing) =>
+                $listing->tags->contains('slug', $tag)
+            );
+        }
+
         return view('listings.index', compact('listings', 'tags'));
     }
 

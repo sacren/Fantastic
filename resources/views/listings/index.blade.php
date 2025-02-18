@@ -38,7 +38,7 @@
                     <div class="md:flex-grow mr-8 flex flex-wrap items-center justify-start gap-2">
                         @foreach ($listing->tags as $tag)
                             <span
-                                class="inline-block tracking-wide text-xs font-medium title-font px-1.5 py-0.5 border border-indigo-500">
+                                class="inline-block tracking-wide text-xs font-medium title-font px-1.5 py-0.5 border border-indigo-500 {{ $tag->slug === request()->get('tag') ? 'bg-indigo-500 text-white' : '' }}">
                                 {{ $tag->name }}
                             </span>
                         @endforeach
