@@ -30,6 +30,16 @@ class Listing extends Model
     ];
 
     /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
+
+    /**
      * Get the clicks associated with the listing.
      *
      * This method defines a one-to-many relationship between the Listing model
