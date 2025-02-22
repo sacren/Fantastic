@@ -38,7 +38,7 @@
                             </p>
                         </div>
 
-                        <a href="#"
+                        <a href="{{ route('listings.apply', $listing) }}"
                             class="inline-block w-full text-center bg-indigo-600 text-white px-6 py-3 rounded-lg hover:bg-indigo-700 transition duration-300 uppercase font-semibold shadow-md hover:shadow-lg">
                             Apply Now
                         </a>
