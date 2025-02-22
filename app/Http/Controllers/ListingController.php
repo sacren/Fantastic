@@ -66,6 +66,19 @@ class ListingController extends Controller
     }
 
     /**
+     * Apply the specified resource in storage
+     */
+    public function apply(Listing $listing , Request $request)
+    {
+        $listing->clicks()->create([
+            'user_agent' => $request->userAgent(),
+            'ip_address' => $request->ip(),
+        ]);
+
+        return redirect()->to($listing->apply_link);
+    }
+
+    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
