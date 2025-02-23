@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ListingController::class, 'index'])
     ->name('listings.index');
 
+Route::get('/new', [ListingController::class, 'create'])
+    ->name('listings.create');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
