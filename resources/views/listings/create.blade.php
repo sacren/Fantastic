@@ -22,6 +22,33 @@
                     </ul>
                 </div>
             @endif
+            <form action="{{ route('listings.store') }}" method="post" id="payment-form" enctype="multipart/form-data"
+                class="bg-gray-100 p-4">
+                @guest
+                    <div class="flex flex-wrap mb-4">
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <x-input-label for="email" value="{{ __('Email Address') }}"></x-input-label>
+                            <input class="block mt-1 w-full" id="email" type="text" name="email"
+                                :value="old('email')" required autofocus autocomplete="username">
+                        </div>
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <x-input-label for="name" value="{{ __('Full Name') }}"></x-input-label>
+                            <input class="block mt-1 w-full" id="name" type="text" name="name"
+                                :value="old('name')" required autofocus autocomplete="username">
+                        </div>
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <x-input-label for="password" value="{{ __('Password') }}"></x-input-label>
+                            <input class="block mt-1 w-full" id="password" type="password" name="password" required
+                                autocomplete="new-password">
+                        </div>
+                        <div class="w-full md:w-1/2 px-2 mb-4">
+                            <x-input-label for="password_confirmation" value="{{ __('Confirm Password') }}"></x-input-label>
+                            <input class="block mt-1 w-full" id="password_confirmation" type="password"
+                                name="password_confirmation" required autocomplete="new-password">
+                        </div>
+                    </div>
+                @endguest
+            </form>
         </div>
     </section>
 </x-app-layout>
