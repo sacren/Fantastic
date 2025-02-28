@@ -151,7 +151,20 @@
     <script>
         const stripe = Stripe('{{ env('STRIPE_KEY') }}');
         const elements = stripe.elements();
-        const cardElement = elements.create('card');
+        const cardElement = elements.create('card', {
+            classes: {
+                base: 'StripeElement rounded-md shadow-sm bg-white px-3 py-3 border border-gray-300 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 w-full',
+            },
+            style: {
+                base: {
+                    lineHeight: '1.5',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '16px',
+                    color: '#374151',
+                },
+            },
+            placeholder: 'Card details',
+        });
         cardElement.mount('#card-element');
     </script>
 </x-app-layout>
