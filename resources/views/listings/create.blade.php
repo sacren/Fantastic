@@ -128,6 +128,11 @@
                             </label>
                         </div>
 
+                        <!-- Card Element -->
+                        <div class="w-full px-3 mb-6">
+                            <div id="card-element"></div>
+                        </div>
+
                         <!-- Submit Button -->
                         <div class="w-full px-3 mb-6">
                             @csrf
@@ -142,4 +147,11 @@
             </form>
         </div>
     </section>
+    <script src="https://js.stripe.com/v3/"></script>
+    <script>
+        const stripe = Stripe('{{ env('STRIPE_KEY') }}');
+        const elements = stripe.elements();
+        const cardElement = elements.create('card');
+        cardElement.mount('#card-element');
+    </script>
 </x-app-layout>
