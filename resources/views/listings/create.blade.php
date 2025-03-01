@@ -166,5 +166,21 @@
             placeholder: 'Card details',
         });
         cardElement.mount('#card-element');
+
+        document.getElementById('submit-button').addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            const {error, paymentMethod} = await stripe.createPaymentMethod({
+                type: 'card',
+                card: cardElement,
+            });
+
+            if (error) {
+                alert(error.message);
+            } else {
+                document.getElementById('payment-method').value = paymentMethod.id;
+                document.getElementById('payment-form').submit();
+            }
+        });
     </script>
 </x-app-layout>
