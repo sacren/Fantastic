@@ -131,6 +131,8 @@
                         <!-- Card Element -->
                         <div class="w-full px-3 mb-6">
                             <div id="card-element"></div>
+                            <!-- Error message container -->
+                            <div id="card-errors" role="alert" class="text-red-500 mt-2 text-sm"></div>
                         </div>
 
                         <!-- Submit Button -->
@@ -176,7 +178,7 @@
             });
 
             if (error) {
-                alert(error.message);
+                document.getElementById('card-errors').textContent = error.message;
             } else {
                 document.getElementById('payment-method').value = paymentMethod.id;
                 document.getElementById('payment-form').submit();
