@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Listing;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ListingController extends Controller
 {
@@ -54,7 +55,27 @@ class ListingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validateList = [
+            'title' => 'required',
+            'company' => 'required',
+            'logo' => 'required|image',
+            'location' => 'required',
+            'apply_link' => 'required|url',
+            'content' => 'required',
+            'payment_method_id' => 'required',
+        ];
+
+        if (!Auth::check()) {
+            $validateList = array_merge($validateList, [
+                'email' => 'required|email',
+                'password' => 'required|confirmed|min:8',
+                'name' => 'required',
+            ]);
+        }
+
+        $request->validate($validateList);
+
+        return redirect()->route('dashboard');
     }
 
     /**
