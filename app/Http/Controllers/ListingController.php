@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class ListingController extends Controller
 {
@@ -89,6 +90,44 @@ class ListingController extends Controller
             $user->createAsStripeCustomer();
 
             Auth::login($user);
+        }
+
+        try {
+            $amount = 9999;
+
+            if ($request->filled('is_highlighted')) {
+                $amount += 1999;
+            }
+
+            $user->charge($amount, $request->payment_method_id);
+
+            $md = new \Parsedown();
+
+            $listing = $user->listings()->create([
+                'title' => $request->title,
+                'slug' => Str::slug($request->title),
+                'company' => $request->company,
+                'logo' => basename($request->file('logo')->store('logos', 'public')),
+                'location' => $request->location,
+                'apply_link' => $request->apply_link,
+                'content' => $md->text($request->content),
+                'is_highlighted' => $request->filled('is_highlighted'),
+                'is_active' => true,
+            ]);
+
+            foreach (explode(',', $request->tags) as $requestTag) {
+                $tag = Tag::firstOrCreate([
+                    'slug' => Str::slug(trim($requestTag)),
+                ], [
+                    'name' => trim($requestTag),
+                ]);
+
+                $tag->listings()->attach($listing->tag);
+            }
+        } catch (\Exception $e) {
+            return redirect()
+                ->back()
+                ->withErrors(['error' => $e->getMessage()]);
         }
 
         return redirect()->route('dashboard');
